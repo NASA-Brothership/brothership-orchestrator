@@ -1,14 +1,14 @@
 services:
 
-  # brothership-frontend:
-  #   container_name: brothership-frontend
-  #   build:
-  #     context: brothership-frontend/
-  #   ports:
-  #     - '${FRONTEND_PUBLISHED_PORT}:${FRONTEND_TARGET_PORT}'
-  #   volumes:
-  #     - ./brothership-frontend:/app
-  #     - /app/node_modules
+  brothership-frontend:
+    container_name: brothership-frontend
+    build:
+      context: brothership-frontend/
+    ports:
+      - '${FRONTEND_PUBLISHED_PORT}:${FRONTEND_TARGET_PORT}'
+    volumes:
+      - ./brothership-frontend:/app
+      - /app/node_modules
 
   brothership-backend:
     container_name: brothership-backend
@@ -53,5 +53,5 @@ services:
   #   ports:
   #     - '${PG_ADMIN_PUBLISHED_PORT}:${PG_ADMIN_TARGET_PORT}'
 
-volumes:
-  volume-postgres-data-back:
+# volumes:
+#   volume-postgres-data-back:
