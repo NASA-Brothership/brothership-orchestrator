@@ -4,6 +4,7 @@ services:
     container_name: brothership-frontend
     build:
       context: brothership-frontend/
+    tty: true
     ports:
       - '${FRONTEND_PUBLISHED_PORT}:${FRONTEND_TARGET_PORT}'
     volumes:
