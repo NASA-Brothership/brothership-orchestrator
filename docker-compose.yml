@@ -24,19 +24,12 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_NAME: ${POSTGRES_DB}
-      AWS_STORAGE_BUCKET_NAME: 'brothership-audios'
-      AWS_ACCESS_KEY_ID: 'XXXXXXXXXXXXXXXXXXXX'
-      AWS_SECRET_ACCESS_KEY: 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY'
-      AWS_DEFAULT_REGION: 'us-east-1'
-      AWS_S3_ENDPOINT_URL: 'http://brothership-localstack:4566'
-
     ports:
       - '${BACKEND_PUBLISHED_PORT}:${BACKEND_TARGET_PORT}'
     volumes:
       - ./brothership-backend:/app
     depends_on:
       - brothership-postgres
-      - brothership-localstack
 
   brothership-postgres:
     container_name: brothership-postgres
@@ -59,24 +52,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASS}
     ports:
       - '${PG_ADMIN_PUBLISHED_PORT}:${PG_ADMIN_TARGET_PORT}'
-
-  brothership-localstack:
-    container_name: brothership-localstack
-    restart: unless-stopped
-    image: localstack/localstack
-    ports:
-      - "4566:4566"  # Web interface (optional)
-      - '4510-4559:4510-4559' # external services port range
-    environment:
-      - SERVICES=s3,lambda
-      - DOCKER_HOST=unix:///var/run/docker.sock
-    volumes:
-      - ./localstack-script.sh:/etc/localstack/init/ready.d/script.sh
-      - '/var/run/docker.sock:/var/run/docker.sock'
-      - localstack_data:/var/lib/localstack
-      # AWS Lambda
-      - ./lambda/unzip.py:/etc/localstack/lambda_function.py
-      - ./lambda/requirements.txt:/etc/localstack/requirements.txt
 
 volumes:
   localstack_data:
