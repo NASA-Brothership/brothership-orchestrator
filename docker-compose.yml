@@ -28,8 +28,8 @@ services:
       - '${BACKEND_PUBLISHED_PORT}:${BACKEND_TARGET_PORT}'
     volumes:
       - ./brothership-backend:/app
-    depends_on:
-      - brothership-postgres
+    # depends_on:
+    #   - brothership-postgres
 
   # brothership-postgres:
   #   container_name: brothership-postgres
